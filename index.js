@@ -19,7 +19,7 @@ const res = require('express/lib/response');
 
 const jwt = require("jsonwebtoken");
 require('./database/con');
-
+//require('./routers/route')
 const auth = require('./middleware/auth')
 
 const data = require('./Model/model')
@@ -29,11 +29,15 @@ const { route } = require('express/lib/application');
 const { createUsers, updateData, deleteData, findData, loginDetails } = require('./controllers/userdata');
 
 
-
-
-
-
 //route.get(userdata.createUsers)
+
+// app.post("/", (req, res) => {
+//     res.json(req.body)
+// })
+
+app.route('/').post(createUsers)
+app.route('/:id').patch(updateData).delete(deleteData).get(findData)
+app.route('/login', auth).post(loginDetails)
 
 /**************server Started*******************/
 app.listen(process.env.PORT, () => {
